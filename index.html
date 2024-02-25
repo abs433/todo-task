@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+    <style>
+        *{
+            /* display: flex; */
+            flex-direction: column;
+            align-self:center;
+            padding-top: 0px;
+            /* text-align: center; */
+            background-color:white ;
+        }
+        #mianHed{
+            background-color: brown;
+            /* height: 200px; */
+            width: 60%;
+            padding-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+            /* align-items: center; */
+            /* align-self: center; */
+            /* margin-left: 100px; */
+            /* align-content: center; */
+            text-align: center;
+        }
+        #userTex {
+            font-size: 20px;
+            
+            padding-left: 20px;
+            width: 300px;
+            height: 40px;
+            margin-right: 0px;
+            border-radius: 10px 0px 0px 10px;
+        }
+        #btnAdd{
+            width: 100px;
+            height: 45px;
+            margin:0px ;
+            font-size:22px ;
+            padding: 10px 20px;
+            border-radius: 0px 10px 10px 0px;
+
+        }
+        #listLi{
+            background-color: brown;
+            display: flex;
+            /* align-content: flex-start; */
+            flex-direction: row;
+            /* background-color: c  ornflowerblue; */
+            height: 150;
+            display: flex;
+            text-align: left;
+            align-self: center;
+        }
+        ul{
+            /* border: 1px solid; */
+            width: 100%;
+            position: relative;
+            background-color: brown;
+
+         
+            padding: 0;
+            list-style:none;;
+            list-style-type: none;
+            color: black;
+            /* margin-left: 10px; */
+            /* padding: 5px; */
+            text-align: center;
+        }
+        li{
+            color: white;
+            border: solid 1px white;
+            text-align: left;
+            margin: 5px;
+            width: 100%;
+            padding: 10px;
+            background-color: brown;
+             border-radius: 5px;
+             display: flex;
+             flex-direction: row;
+             justify-content: space-between;
+            /* border: solid 1px; */
+            /* text-align: left; */
+            /* padding: 5px; */
+             font-size: 20px;
+        }
+        #main{
+            display: flex;
+            flex-direction: column;
+            /* width: 60%; */
+            /* border: 1px solid; */
+            /* text-align: center; */
+            /* align-items: right; */
+            /* display: flex; */
+        }
+        button{
+            /* float: inline-end;  */
+            padding: 5px 10px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        li>div{
+            background-color: brown;
+
+        }
+        li>div>button{
+            border-radius: 5px;
+            color: white;
+            border: 1px solid white;
+                background-color: brown;
+        }
+    </style>
+</head>
+<body>
+
+  
+<div id="main" style="text-align: center;">
+        <h1>Abu Bakar Siddique CCO-2625048</h1>
+
+    <div id="mianHed">
+        <div style="display: flex; flex-direction: row; border-radius: 10px;">
+    <input type="text" name="" id="userTex" placeholder="enter your todo">
+    <button id="btnAdd" onclick="addTask()"> Add</button><br>
+</div>
+   
+<br>
+    <div id="listLi">
+    <ul id="list">
+        
+        <li>abu bakar  <div> <button>edit</button></div></li> 
+    </ul></div>
+    </div>
+
+</div>
+    <script>
+
+        // function todo() {
+        //     var userTex = document.getElementById('userTex')
+        //     var show = document.getElementById("list")
+        //     var userText =userTex.value.trim();
+        //     var li = document.createElement("li")
+        //     var text = document.createTextNode(userText)
+        //     // console.log(text);
+        //     var btn = document.createElement("button")
+        //     var btnText = document.createTextNode("Delte")
+        //     var btnShow= btn.appendChild(btnText)
+        //     li.appendChild(text);
+           
+        //     var div = document.createElement("div")
+        //     //  function del() {
+                
+                
+        //         var btns = document.createElement("button")
+        //         var bntstext = document.createTextNode("Edit")
+        //         btns.appendChild(bntstext)
+        //         // li.appendChild(btns)
+        //         div.appendChild(btns)
+
+
+        //       var btns1 = document.createElement("button")
+        //     var bntstext1 = document.createTextNode("Delete")
+        //     btns1.appendChild(bntstext1)
+           
+        //     div.appendChild(btns1)
+        //         li.appendChild(div)
+        //            //  }
+        //     console.log(btn);
+     
+        //     show.prepend(li)
+       
+        // }
+
+        let tasks = [];
+        function addTask() {
+                const taskInput = document.getElementById('userTex');
+                const taskText = taskInput.value.trim();
+
+                if (taskText === '') return;
+
+                tasks.push(taskText);
+                renderTasks();
+
+                taskInput.value = '';
+            }
+
+            function deleteTask(index) {
+                tasks.splice(index, 1);
+                renderTasks();
+            }
+
+            function editTask(index) {
+                const newTaskText = prompt('Edit task:', tasks[index]);
+                if (newTaskText !== null) {
+                    tasks[index] = newTaskText.trim();
+                    renderTasks();
+                }
+            }
+
+            function renderTasks() {
+                const taskList = document.getElementById('list');
+                taskList.innerHTML = '';
+
+                tasks.forEach((task, index) => {
+                    const li = document.createElement('li');
+                    li.textContent = task;
+                    var div  = document.createElement('div')
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'Delete';
+                    deleteBtn.onclick = () => deleteTask(index);
+                    div.appendChild(deleteBtn)
+                    const editBtn = document.createElement('button');
+                    editBtn.textContent = 'Edit';
+                    editBtn.onclick = () => editTask(index);
+                    div.appendChild(editBtn)
+
+                    li.appendChild(div);
+                    // li.appendChild(editBtn);
+
+                    taskList.prepend(li);
+                });
+            }
+      
+    </script>
+</body>
+</html>
